@@ -1,0 +1,352 @@
+/* Reset & Estilos Base */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg-dark: #0a0b10;
+  --panel-bg: rgba(20, 24, 38, 0.85);
+  --accent-orange: #ff6600;
+  --accent-cyan: #00e5ff;
+  --accent-purple: #9d4edd;
+  --text-light: #f0f4f8;
+  --text-muted: #8a99ad;
+  --card-back-bg: #151926;
+  --card-border: rgba(255, 102, 0, 0.3);
+  --card-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+}
+
+body {
+  font-family: 'Rajdhani', sans-serif;
+  background-color: var(--bg-dark);
+  color: var(--text-light);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  overflow-x: hidden;
+  position: relative;
+}
+
+.background-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 50% 20%, rgba(255, 102, 0, 0.15) 0%, transparent 60%),
+    radial-gradient(circle at 80% 80%, rgba(0, 229, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 10% 90%, rgba(157, 78, 221, 0.1) 0%, transparent 50%);
+  z-index: -1;
+}
+
+.game-container {
+  width: 100%;
+  max-width: 680px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Header */
+.header {
+  text-align: center;
+}
+
+.title {
+  font-family: 'Cinzel', serif;
+  font-size: 3rem;
+  letter-spacing: 6px;
+  color: var(--text-light);
+  text-shadow: 0 0 15px var(--accent-orange), 0 0 30px rgba(255, 102, 0, 0.5);
+  margin-bottom: 2px;
+}
+
+.subtitle {
+  font-size: 1rem;
+  letter-spacing: 4px;
+  color: var(--accent-cyan);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+/* Painel de Estatísticas */
+.stats-panel {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  background: var(--panel-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  padding: 12px 24px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+}
+
+.stat-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stat-label {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  letter-spacing: 1.5px;
+  font-weight: 700;
+}
+
+.stat-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--accent-orange);
+  text-shadow: 0 0 8px rgba(255, 102, 0, 0.4);
+}
+
+/* Botões */
+.controls {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+}
+
+.btn {
+  flex: 1;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--accent-orange), #d44d00);
+  color: #fff;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 12px rgba(255, 102, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(255, 102, 0, 0.5);
+  filter: brightness(1.1);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn-secondary {
+  background: rgba(30, 38, 56, 0.9);
+  border: 1px solid rgba(0, 229, 255, 0.3);
+  color: var(--accent-cyan);
+  box-shadow: 0 4px 12px rgba(0, 229, 255, 0.15);
+}
+
+.btn-secondary:hover {
+  box-shadow: 0 6px 18px rgba(0, 229, 255, 0.3);
+}
+
+.btn-primary {
+  width: 100%;
+  font-size: 1.1rem;
+  padding: 14px;
+}
+
+/* Grid de Cartas */
+.memory-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  width: 100%;
+  perspective: 1000px;
+}
+
+/* Cartas 3D */
+.card {
+  aspect-ratio: 3 / 4;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  cursor: pointer;
+}
+
+.card.flipped {
+  transform: rotateY(180deg);
+}
+
+.card.matched {
+  transform: rotateY(180deg) scale(0.96);
+  cursor: default;
+}
+
+.card-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  box-shadow: var(--card-shadow);
+  user-select: none;
+}
+
+/* Verso da Carta (Costas) */
+.card-back {
+  background: linear-gradient(145deg, #181d2d, #0d101a);
+  border: 2px solid var(--card-border);
+}
+
+.card-back-design {
+  width: 100%;
+  height: 100%;
+  border: 1px dashed rgba(255, 102, 0, 0.4);
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.card-back-icon {
+  font-size: 2.2rem;
+  color: var(--accent-orange);
+  opacity: 0.8;
+  filter: drop-shadow(0 0 8px rgba(255, 102, 0, 0.6));
+  animation: pulse 3s infinite ease-in-out;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.1); opacity: 1; }
+}
+
+/* Frente da Carta */
+.card-front {
+  background: linear-gradient(145deg, #1c2438, #111624);
+  transform: rotateY(180deg);
+  border: 2px solid var(--accent-cyan);
+  box-shadow: 0 0 15px rgba(0, 229, 255, 0.3);
+}
+
+.card.matched .card-front {
+  border-color: #00ff88;
+  box-shadow: 0 0 20px rgba(0, 255, 136, 0.4);
+}
+
+.card-svg {
+  width: 70%;
+  height: 70%;
+  filter: drop-shadow(0 0 8px currentColor);
+}
+
+.card-title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  margin-top: 6px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+/* Modal */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(5, 7, 12, 0.85);
+  backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.modal-backdrop.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.modal-content {
+  background: linear-gradient(145deg, #161b2b, #0d101a);
+  border: 2px solid var(--accent-orange);
+  border-radius: 16px;
+  padding: 32px;
+  width: 90%;
+  max-width: 420px;
+  text-align: center;
+  box-shadow: 0 0 40px rgba(255, 102, 0, 0.3);
+  transform: scale(1);
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.modal-backdrop.hidden .modal-content {
+  transform: scale(0.8);
+}
+
+.modal-header h2 {
+  font-family: 'Cinzel', serif;
+  font-size: 2.4rem;
+  color: var(--accent-orange);
+  letter-spacing: 4px;
+  text-shadow: 0 0 15px rgba(255, 102, 0, 0.6);
+}
+
+.modal-header p {
+  color: var(--text-muted);
+  margin-top: 4px;
+  font-size: 1.05rem;
+}
+
+.modal-stats {
+  margin: 24px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: rgba(0, 0, 0, 0.25);
+  padding: 16px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.modal-stat-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.1rem;
+}
+
+.modal-stat-item span {
+  color: var(--text-muted);
+}
+
+.modal-stat-item strong {
+  color: var(--accent-cyan);
+}
+
+/* Responsividade */
+@media (max-width: 520px) {
+  .title { font-size: 2.2rem; }
+  .memory-grid { gap: 10px; }
+  .card-title { font-size: 0.65rem; }
+  .stats-panel { padding: 10px 14px; }
+  .stat-value { font-size: 1.2rem; }
+}

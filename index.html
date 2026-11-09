@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jogo da Memória - Bleach Edition</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <div class="background-overlay"></div>
+
+  <div class="game-container">
+    <header class="header">
+      <h1 class="title">BLEACH</h1>
+      <p class="subtitle">JOGO DA MEMÓRIA - SOUL SOCIETY</p>
+    </header>
+
+    <div class="stats-panel">
+      <div class="stat-card">
+        <span class="stat-label">TEMPO</span>
+        <span class="stat-value" id="timer">00:00</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">JOGADAS</span>
+        <span class="stat-value" id="moves">0</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">PARES</span>
+        <span class="stat-value" id="pairs">0 / 6</span>
+      </div>
+    </div>
+
+    <div class="controls">
+      <button id="restart-btn" class="btn">
+        <span class="btn-icon">↺</span> REINICIAR JOGO
+      </button>
+      <button id="sound-btn" class="btn btn-secondary">
+        <span id="sound-icon">🔊</span> SOM: ON
+      </button>
+    </div>
+
+    <main class="memory-grid" id="memory-grid"></main>
+  </div>
+
+  <!-- Modal de Vitória -->
+  <div class="modal-backdrop hidden" id="win-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>BANKAI!</h2>
+        <p>Você dominou o Jogo da Memória!</p>
+      </div>
+
+      <div class="modal-stats">
+        <div class="modal-stat-item">
+          <span>Tempo Total:</span>
+          <strong id="final-time">00:00</strong>
+        </div>
+        <div class="modal-stat-item">
+          <span>Jogadas Realizadas:</span>
+          <strong id="final-moves">0</strong>
+        </div>
+        <div class="modal-stat-item">
+          <span>Rank Shinigami:</span>
+          <strong id="final-rank">Capitão</strong>
+        </div>
+      </div>
+
+      <button id="modal-restart-btn" class="btn btn-primary">JOGAR NOVAMENTE</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
